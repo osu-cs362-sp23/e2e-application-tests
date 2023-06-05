@@ -46,5 +46,31 @@ it("Chart data is maintained across chart types", function () {
   cy.findByRole("link", {name: "Line"}).click()
   cy.url().should("eq", "http://localhost:8080/line.html")
   cy.verifyChartData()
+})
 
+it("Saving a chart to the gallery", function () {
+  //visit home page
+  cy.visit("/")
+
+  //click Line link & verify URL redirection
+  cy.findByRole("link", {name: "Line"}).click()
+  cy.url().should("eq", "http://localhost:8080/line.html")
+
+  //fill the line chart with labes & data
+  cy.fillChartData()
+  
+  //click generate chart
+  cy.get("#generate-chart-btn").click()
+
+  //click save chart
+  cy.get("#save-chart-btn").click()
+
+  //click gallery and verify redirection to homepage where gallery is hosted
+  cy.findByRole("link", {name: "Gallery"}).click()
+  cy.url().should("eq", "http://localhost:8080/")
+
+  //assert the chart is displayed via title
+  cy.get(".chart-title")
+    .should("exist")
+    .and("contain", "Cookies vs. Brownies")
 })
