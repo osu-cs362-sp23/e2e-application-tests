@@ -5,10 +5,13 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open",
-    "test": "jest"
+    "test": "jest",
+    "cy:open": "cypress open"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^9.0.0",
     "css-loader": "^6.7.4",
+    "cypress": "^12.13.0",
     "html-webpack-plugin": "^5.5.1",
     "style-loader": "^3.3.3",
     "webpack": "^5.83.1",
