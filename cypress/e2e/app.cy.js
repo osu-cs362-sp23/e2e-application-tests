@@ -20,3 +20,31 @@ it("Chart is generated and displayed", function () {
     .should("exist")
     .and("be.visible")
 })
+
+it("Chart data is maintained across chart types", function () {
+  //visit home page
+  cy.visit("/")
+
+  //click Line link & verify URL redirection
+  cy.findByRole("link", {name: "Line"}).click()
+  cy.url().should("eq", "http://localhost:8080/line.html")
+
+  //fill the line chart with labes & data
+  cy.fillChartData()
+
+  //click Scatter link & verify URL redirection
+  cy.findByRole("link", {name: "Scatter"}).click()
+  cy.url().should("eq", "http://localhost:8080/scatter.html")
+  cy.verifyChartData() //verify chart data remains same
+
+  //click Bar link & verify URL redirection
+  cy.findByRole("link", {name: "Bar"}).click()
+  cy.url().should("eq", "http://localhost:8080/bar.html")
+  cy.verifyChartData()
+
+  //click Line link & verify URL redirection
+  cy.findByRole("link", {name: "Line"}).click()
+  cy.url().should("eq", "http://localhost:8080/line.html")
+  cy.verifyChartData()
+
+})
