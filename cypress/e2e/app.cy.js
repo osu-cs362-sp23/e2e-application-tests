@@ -74,3 +74,36 @@ it("Saving a chart to the gallery", function () {
     .should("exist")
     .and("contain", "Cookies vs. Brownies")
 })
+
+it("Accessing a saved chart", function () {
+  //visit home page
+  cy.visit("/")
+
+  //click line link & verify URL
+  cy.findByRole("link", {name: "Line"}).click()
+  cy.url().should("eq", "http://localhost:8080/line.html")
+
+  //enter data points
+  cy.fillChartData()
+    
+  //click generate chart
+  cy.get("#generate-chart-btn").click()
+
+  //click save chart
+  cy.get("#save-chart-btn").click()
+
+  //click Gallery and verify URL redirection to homepage
+  cy.findByRole("link", {name: "Gallery"}).click()
+  cy.url().should("eq", "http://localhost:8080/")
+
+  //click on the saved chart
+  cy.get(".chart-card").click()
+
+  //verify the chart data is retained in editor
+  cy.verifyChartData()
+
+  //verify the saved chart is displayed
+  cy.get("#chart-img")
+  .should("exist")
+  .and("be.visible")
+})
