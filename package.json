@@ -6,13 +6,16 @@
     "build": "webpack",
     "start": "webpack serve --open",
     "test": "jest",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "test-cypress": "start-server-and-test start http://localhost:8080 cy:run"
   },
   "devDependencies": {
     "@testing-library/cypress": "^9.0.0",
     "css-loader": "^6.7.4",
     "cypress": "^12.13.0",
     "html-webpack-plugin": "^5.5.1",
+    "start-server-and-test": "^2.0.0",
     "style-loader": "^3.3.3",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
