@@ -11,6 +11,9 @@
     "test-cypress": "start-server-and-test start http://localhost:8080 cy:run"
   },
   "devDependencies": {
+    "@testing-library/dom": "^9.3.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/user-event": "^14.4.3",
     "@testing-library/cypress": "^9.0.0",
     "css-loader": "^6.7.4",
     "cypress": "^12.13.0",
@@ -22,7 +25,8 @@
     "style-loader": "^3.3.3",
     "webpack": "^5.83.1",
     "webpack-cli": "^5.1.1",
-    "webpack-dev-server": "^4.15.0"
+    "webpack-dev-server": "^4.15.0",
+    "whatwg-fetch": "^3.6.2"
   },
   "jest": {
     "moduleNameMapper": {
