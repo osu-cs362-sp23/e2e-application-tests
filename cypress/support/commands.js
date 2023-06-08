@@ -31,18 +31,28 @@ Cypress.Commands.add("fillChartData", function () {
     cy.get("#x-label-input").type("Cookies")
     cy.get("#y-label-input").type("Brownies")
   
-    //obtain fourth child in xy grid (first x input)
-    cy.get("#x-y-data-grid").children().eq(3).type("1")
-    //obtain fifth child in xy grid (first y input)
-    cy.get("#x-y-data-grid").children().eq(4).type("4")
-    cy.get('#add-values-btn').click()
-  
-    cy.get("#x-y-data-grid").children().eq(5).type("2")
-    cy.get("#x-y-data-grid").children().eq(6).type("8")
-    cy.get('#add-values-btn').click()
-  
-    cy.get("#x-y-data-grid").children().eq(7).type("3")
-    cy.get("#x-y-data-grid").children().eq(8).type("16")
+    //add xy inputs
+    for(let i = 0; i < 4; i++){
+        cy.get('#add-values-btn').click()
+    }
+
+    //fill values into x fields
+    cy.findAllByLabelText("X").then(function (xInputs) {
+        cy.wrap(xInputs[0]).type("1")
+        cy.wrap(xInputs[1]).type("2")
+        cy.wrap(xInputs[2]).type("3")
+        cy.wrap(xInputs[3]).type("4")
+        cy.wrap(xInputs[4]).type("5")
+    })
+    
+    //fill values into y fields
+    cy.findAllByLabelText("Y").then(function (yInputs) {
+        cy.wrap(yInputs[0]).type("4")
+        cy.wrap(yInputs[1]).type("8")
+        cy.wrap(yInputs[2]).type("16")
+        cy.wrap(yInputs[3]).type("32")
+        cy.wrap(yInputs[4]).type("64")
+    })
 })
 
 Cypress.Commands.add("verifyChartData", function() {
@@ -51,31 +61,21 @@ Cypress.Commands.add("verifyChartData", function() {
     cy.get("#x-label-input").should("have.value", "Cookies")
     cy.get("#y-label-input").should("have.value", "Brownies")
   
-    //obtain input field by traversing grid children
-    cy.get("#x-y-data-grid")
-        .children().eq(3)//obtain 4th child of grid (label element)
-        .children().eq(0)//obtain label's child (input field)
-        .should("have.value", "1")
-    cy.get("#x-y-data-grid")
-        .children().eq(4)//obtain 5th child of grid (label element)
-        .children().eq(0)//obtain label's child (input field)
-        .should("have.value", "4")    
-
-    cy.get("#x-y-data-grid")
-        .children().eq(5) 
-        .children().eq(0) 
-        .should("have.value", "2")
-    cy.get("#x-y-data-grid")
-        .children().eq(6)
-        .children().eq(0) 
-        .should("have.value", "8") 
-
-    cy.get("#x-y-data-grid")
-        .children().eq(7) 
-        .children().eq(0) 
-        .should("have.value", "3")
-    cy.get("#x-y-data-grid")
-        .children().eq(8) 
-        .children().eq(0) 
-        .should("have.value", "16") 
+    //assert x field values
+    cy.findAllByLabelText("X").then(function (xInputs) {
+        cy.wrap(xInputs[0]).should("have.value", "1")
+        cy.wrap(xInputs[1]).should("have.value", "2")
+        cy.wrap(xInputs[2]).should("have.value", "3")
+        cy.wrap(xInputs[3]).should("have.value", "4")
+        cy.wrap(xInputs[4]).should("have.value", "5")
+    })
+    
+    //assert y field values
+    cy.findAllByLabelText("Y").then(function (yInputs) {
+        cy.wrap(yInputs[0]).should("have.value", "4")
+        cy.wrap(yInputs[1]).should("have.value", "8")
+        cy.wrap(yInputs[2]).should("have.value", "16")
+        cy.wrap(yInputs[3]).should("have.value", "32")
+        cy.wrap(yInputs[4]).should("have.value", "64")
+    })
 })
