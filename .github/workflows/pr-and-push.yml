@@ -1,0 +1,11 @@
+name: Build & Test on Push and PRs
+on:
+    pull_request:
+      branches:
+        - main
+    push:
+        branches:
+            - main    
+jobs:
+  build-and-test:
+    uses: ./.github/workflows/build-and-test.yml
